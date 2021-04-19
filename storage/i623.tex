@@ -1,0 +1,70 @@
+\documentclass{standalone}
+
+\usepackage{amsmath}
+\usepackage{makecell}
+
+\usepackage{istgame}
+
+\NewDocumentCommand\mact{m}
+{\makecell[c]{#1}}
+\NewDocumentCommand\mpay{m}
+{\begin{matrix}#1\end{matrix}}
+
+\begin{document}
+
+\begin{istgame}[font=\footnotesize]
+\setistmathTF*001
+\xtShowEndPoints
+% top part
+\xtdistance{25mm}{120mm}
+\istroot(0)[chance node]{Nature}
+  \istb{\mact{$R=O$\\cooperative\\partner}}[al]
+  \istb{\mact{$R=\bar R$\\noncooperative\\partner}}[ar]  \endist
+\xtdistance{25mm}{50mm}
+\istroot(A)(0-1)%<180>{Minister}
+  \istb{\mact{Introduce\\first proposal}}[l]  \endist
+\istroot(B)(0-2)%<0>{Minister}
+  \istb{\mact{Introduce\\first proposal}}[r]  \endist
+% left part
+\xtdistance{25mm}{60mm}
+\istroot(A0)(A-1)<180>{Partner}
+  \istb{Scrutinize}[l]  \istb{Endorse}[r]  \endist
+\xtdistance{25mm}{30mm}
+\istroot(A1)(A0-1)<0>{$B-C,O$}
+  \istb{\mact{Introduce\\second\\proposal}}[al]  \istb{Delay}[ar]  \endist
+\istroot(A2)(A0-2)<180>{$B,X$}
+  \istb{\mact{Introduce\\second\\proposal}}[al]  \istb{Delay}[ar]  \endist
+\xtdistance{25mm}{15mm}
+\istroot(A3)(A1-1)<180>{Partner}
+  \istb{Scrut.}[l]{B-C,O}        \istb{Endorse}[r]{B,X}         \endist
+\istroot(A4)(A1-2)<0>{Partner}
+  \istb{S}[l]{\mpay{B-L,\\R-L}}  \istb{E}[r]{\mpay{B-L,\\R-L}}  \endist
+\istroot(A5)(A2-1)<0>{Partner}
+  \istb{S}[l]{B-C,O}             \istb{E}[r]{B,X}               \endist
+\istroot(A6)(A2-2)<0>{Partner}
+  \istb{S}[l]{\mpay{B-L,\\R-L}}  \istb{E}[r]{\mpay{B-L,\\R-L}}  \endist
+% right part
+\xtdistance{25mm}{60mm}
+\istroot(B0)(B-1)<180>{Partner}
+  \istb{Scrutinize}[l]  \istb{Endorse}[r]  \endist
+\xtdistance{25mm}{30mm}
+\istroot(B1)(B0-1)<0>{$B-C,\bar R$}
+  \istb{\mact{Introduce\\second\\proposal}}[al]  \istb{Delay}[ar]  \endist
+\istroot(B2)(B0-2)<180>{$B,X$}
+  \istb{\mact{Introduce\\second\\proposal}}[al]  \istb{Delay}[ar]  \endist
+\xtdistance{25mm}{15mm}
+\istroot(B3)(B1-1)<180>{Partner}
+  \istb{Scrut.}[l]{B-C,\bar R}   \istb{Endorse}[r]{B,X}         \endist
+\istroot(B4)(B1-2)<0>{Partner}
+  \istb{S}[l]{\mpay{B-L,\\R-L}}  \istb{E}[r]{\mpay{B-L,\\R-L}}  \endist
+\istroot(B5)(B2-1)<0>{Partner}
+  \istb{S}[l]{B-C,\bar R}        \istb{E}[r]{B,X}               \endist
+\istroot(B6)(B2-2)<0>{Partner}
+  \istb{S}[l]{\mpay{B-L,\\R-L}}  \istb{E}[r]{\mpay{B-L,\\R-L}}  \endist
+% information sets
+\xtInfosetO(A)(B){Minister}
+\xtCInfosetO(A1)!.35!(B1)<1.15>{Minister}
+\xtCInfosetO(A2)!.65!(B2)<1.15>{Minister}
+\end{istgame}
+
+\end{document}
